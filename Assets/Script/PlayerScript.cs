@@ -6,17 +6,25 @@ public class PlayerScript : MonoBehaviour
 {
     private Rigidbody rb;
 
+    private GameManagerScript gm;
+
     private float playerSpeed;
     private bool isCanJump;
+    private bool isClear;
 
     [SerializeField] private float playerAcce;
     [SerializeField] private float MaxSpeed;
     [SerializeField] private float jumpPower;
 
+
     private void PlayerController()
     {
-        Move();
-        Jump();
+        if(!isClear)
+        {
+            Move();
+            Jump();
+        }
+      
     }
     private void Move()
     {
@@ -61,6 +69,15 @@ public class PlayerScript : MonoBehaviour
         }
         
     }
+    private void Load()
+    {
+        gm = GameObject.FindWithTag("GameController").GetComponent<GameManagerScript>();    
+        rb = GetComponent<Rigidbody>();
+
+        isCanJump = true;
+        isClear = false;
+        playerSpeed = 0;
+    }
     public void OnCollisionEnter(Collision collision) 
     {
          {
@@ -75,14 +92,18 @@ public class PlayerScript : MonoBehaviour
             }
              }//ê⁄ínîªíË
     }
-        // Start is called before the first frame update
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Goal")
+        {
+            gm.Clear();
+            isClear = true;
+        }
+    }
+    // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 60;
-        rb = GetComponent<Rigidbody>();
-
-        isCanJump = true;
-        playerSpeed = 0;
+       Load();
     }
 
     // Update is called once per frame
