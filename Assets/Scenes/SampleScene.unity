@@ -563,9 +563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1d6cdcd74dfe04c90c9821778885e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAcce: 1
+  playerAcce: 3
   MaxSpeed: 5
-  jumpPower: 7
+  jumpPower: 14
 --- !u!54 &1741093429
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -589,7 +589,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741093427}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0801f0d3487c9fa4b960fd32e8b14779, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

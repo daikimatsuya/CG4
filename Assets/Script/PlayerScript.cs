@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     }
     private void Move()
     {
+        playerSpeed = 0;
         if (Input.GetKey(KeyCode.RightArrow))
         {
             playerSpeed += playerAcce;
@@ -35,25 +36,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             playerSpeed -= playerAcce;
-        }
-
-        if(Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            playerSpeed = 0;
-        }
-        if( Input.GetKeyUp(KeyCode.LeftArrow)) 
-        {
-            playerSpeed = 0;
-        }
-
-        if(playerSpeed > MaxSpeed)
-        {
-            playerSpeed = MaxSpeed;
-        }
-        if(playerSpeed < -MaxSpeed)
-        {
-            playerSpeed = -MaxSpeed;
-        }
+        } 
 
         rb.velocity=new Vector3 (playerSpeed, rb.velocity.y, 0);
     }
