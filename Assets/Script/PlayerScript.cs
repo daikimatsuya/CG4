@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
         }
         if(isClear)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space)||Input.GetAxis("Jump")!=0)
             {
                 SceneChange();
             }
@@ -40,23 +40,23 @@ public class PlayerScript : MonoBehaviour
     }
     private void SceneChange()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+
             SceneManager.LoadScene(title);
-        }
+
     }
     private void Move()
     {
+        float stickDeg = Mathf.Atan(Input.GetAxis("leftStickX"))*Mathf.Rad2Deg;
         playerSpeed = 0;
         animator.SetBool("isWalk", false);
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow)||stickDeg > 0)
         {
             playerSpeed += playerAcce;
             tf.transform.localEulerAngles = new Vector3 (0, 90, 0);
             animator.SetBool("isWalk", true);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow)||stickDeg < 0)
         {
             playerSpeed -= playerAcce;
             tf.transform.localEulerAngles = new Vector3(0, -90, 0);
@@ -69,7 +69,7 @@ public class PlayerScript : MonoBehaviour
     {
         if(isCanJump)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space)||Input.GetAxis("Jump")!=0)
             {
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y+jumpPower, 0);
                 isCanJump = false;

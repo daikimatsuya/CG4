@@ -18,7 +18,7 @@ public class TitleScript : MonoBehaviour
     }
     private void SceneChange()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetAxis("Jump") != 0)
         {
             SceneManager.LoadScene(inGame);
         }
