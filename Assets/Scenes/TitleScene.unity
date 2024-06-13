@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGame: SampleScene
   hitkey: {fileID: 1220798766}
-  hitKeyTimer: 4
+  hitKeyTimer: 0.5
 --- !u!4 &816698554
 Transform:
   m_ObjectHideFlags: 0
