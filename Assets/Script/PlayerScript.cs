@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody rb;
+    private Transform tf;
+    private Animator animator;
 
     private GameManagerScript gm;
 
     private float playerSpeed;
     private bool isCanJump;
     private bool isClear;
+   
+
 
     [SerializeField] private float playerAcce;
     [SerializeField] private float MaxSpeed;
     [SerializeField] private float jumpPower;
-
+    [SerializeField] private string title;
 
     private void PlayerController()
     {
@@ -24,19 +30,38 @@ public class PlayerScript : MonoBehaviour
             Move();
             Jump();
         }
-      
+        if(isClear)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneChange();
+            }
+        }
+    }
+    private void SceneChange()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(title);
+        }
     }
     private void Move()
     {
         playerSpeed = 0;
+        animator.SetBool("isWalk", false);
         if (Input.GetKey(KeyCode.RightArrow))
         {
             playerSpeed += playerAcce;
+            tf.transform.localEulerAngles = new Vector3 (0, 90, 0);
+            animator.SetBool("isWalk", true);
         }
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             playerSpeed -= playerAcce;
-        } 
+            tf.transform.localEulerAngles = new Vector3(0, -90, 0);
+            animator.SetBool("isWalk", true);
+        }
 
         rb.velocity=new Vector3 (playerSpeed, rb.velocity.y, 0);
     }
@@ -48,6 +73,7 @@ public class PlayerScript : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y+jumpPower, 0);
                 isCanJump = false;
+                animator.SetBool("isJump", true);
             }
         }
         
@@ -56,6 +82,8 @@ public class PlayerScript : MonoBehaviour
     {
         gm = GameObject.FindWithTag("GameController").GetComponent<GameManagerScript>();    
         rb = GetComponent<Rigidbody>();
+        tf = GetComponent<Transform>();
+        animator = GetComponent<Animator>();
 
         isCanJump = true;
         isClear = false;
@@ -72,6 +100,7 @@ public class PlayerScript : MonoBehaviour
             if (dotDeg <= 45)
             {
                 isCanJump = true;
+                animator.SetBool("isJump", false);
             }
              }//Ú’n”»’è
     }

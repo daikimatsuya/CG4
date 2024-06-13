@@ -6,9 +6,15 @@ using UnityEngine.SceneManagement;
 public class TitleScript : MonoBehaviour
 {
     [SerializeField] private string inGame;
+    [SerializeField] private GameObject hitkey;
+    [SerializeField] private float hitKeyTimer;
+
+    private int timer;
+
     private void TitleSceneController()
     {
         SceneChange();
+        BlinkingHitKey();
     }
     private void SceneChange()
     {
@@ -17,10 +23,26 @@ public class TitleScript : MonoBehaviour
             SceneManager.LoadScene(inGame);
         }
     }
+    private void BlinkingHitKey()
+    {
+        timer--;
+        if(timer<=0)
+        {
+            timer = (int)(hitKeyTimer * 2 * 60);
+        }
+        if (timer > hitKeyTimer * 60)
+        {
+            hitkey.SetActive(false);
+        }
+        else
+        {
+            hitkey.SetActive(true);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

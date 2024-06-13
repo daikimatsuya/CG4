@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Goal
   - GameClearText
+  - hitKey
+  - GoalParticle
   layers:
   - Default
   - TransparentFX
